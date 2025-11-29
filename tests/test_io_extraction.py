@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2025  Rami Ardati
+
 import numpy as np
 
 """Synthetic I/O-style tests for cell record handling.

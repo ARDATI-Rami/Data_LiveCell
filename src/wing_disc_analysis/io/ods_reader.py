@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2025  Rami Ardati
+
 """
 ODS (OpenDocument Spreadsheet) file reading utilities.
 

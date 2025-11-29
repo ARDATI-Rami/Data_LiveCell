@@ -125,7 +125,6 @@ Desktop.ini
 # Image/video files - typically too large for git
 *.tif
 *.tiff
-*.png
 *.gif
 *.avi
 *.mov
@@ -135,8 +134,22 @@ Desktop.ini
 
 # Output directories
 Results_*/
+Xls_Data/
+data/
 outputs/
 Real_wing_tissue_figs_png/
+
+# ============================================================================
+# External Tools (Large, Not Source Code)
+# ============================================================================
+Icy/
+epitools*/
+cellGraph/
+MorphoNet/
+wing_contours_circular/
+wing_grids/
+Wing_disc_videos/
+zips/
 
 # ----------------------------------------------------------------------------
 # Temporary & Cache Files
@@ -178,4 +191,13 @@ site/
 *.key
 secrets.json
 credentials.json
+# ----------------------------------------------------------------------------
+# Legacy files
+# ----------------------------------------------------------------------------
+deprecated
 
+
+# ============================================================================
+# Keep Reference Images (Small PNGs for README)
+# ============================================================================
+!images/*.png

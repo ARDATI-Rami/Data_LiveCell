@@ -19,7 +19,7 @@ page_h = page_height_in
 stamp_prefix = 'Results_R2_'
 
 shape_names = {3: 'Triangle', 4: 'Quadrilateral', 5: 'Pentagon', 6: 'Hexagon', 7: 'Heptagon'}
-save_dir = 'Results_wing_lagrangian'
+save_dir = '../Results_wing_lagrangian'
 os.makedirs(save_dir, exist_ok=True)
 
 # ====== switches (kept/extended) ======
@@ -2338,7 +2338,7 @@ def main():
     :rtype:  None
     """
     # 1) Load workbook and frames
-    file_path = "Xls_Data"
+    file_path = "../Xls_Data"
     file_name = "all_frames_wing_discs.xls"
     wb = load_workbook(file_path, file_name)
     frames = read_all_frames(wb)

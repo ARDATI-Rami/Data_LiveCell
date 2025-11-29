@@ -22,7 +22,7 @@ print(f"page size in pixels at 300dpi: {page_w*300:.2f} x {page_h*300:.2f}")
 # Define shape names
 shape_names = {3: 'Triangle', 4: 'Quadrilateral', 5: 'Pentagon', 6: 'Hexagon', 7: 'Heptagon'}
 stamp_prefix = 'Results_R2_'
-save_dir = 'Results_wing_eulerian'
+save_dir = '../Results_wing_eulerian'
 os.makedirs(save_dir, exist_ok=True)
 
 # Function to extract data from a sheet in the workbook
@@ -480,7 +480,7 @@ random.shuffle(roi_colors)  # This shuffles the list in place
 
 
 # Load the .xls file
-file_path = "Xls_Data"
+file_path = "../Xls_Data"
 file_name = 'all_frames_wing_discs.xls'  # Replace with your actual file name
 workbook = xlrd.open_workbook(os.path.join(file_path, file_name))
 print(f'Number of sheets : {workbook.nsheets}')

@@ -151,7 +151,7 @@ def main():
     page_w, page_h = wda.utils.get_page_dimensions()
     
     print("Generating metric maps...")
-    
+
     # JSD map
     wda.visualization.plot_metric_map(
         metrics['jsd'],
@@ -162,11 +162,12 @@ def main():
         'Topology deviation map (JSD vs global)',
         'Jensen–Shannon divergence (bits)',
         os.path.join(args.output, 'map_topology_jsd.png'),
-        page_w=page_w/2,
-        page_h=page_h/6,
+        # use a larger figure allocation so the map area is bigger relative to the colorbar
+        page_w=page_w/1.5,
+        page_h=page_h/3,
         dpi=args.dpi
     )
-    
+
     # W1 map
     wda.visualization.plot_metric_map(
         metrics['w1'],
@@ -177,11 +178,12 @@ def main():
         'Topology deviation map (Wasserstein-1)',
         'Wasserstein-1 distance (sides)',
         os.path.join(args.output, 'map_topology_w1.png'),
-        page_w=page_w/2,
-        page_h=page_h/6,
+        # match sizing to the JSD map for consistent appearance
+        page_w=page_w/1.5,
+        page_h=page_h/3,
         dpi=args.dpi
     )
-    
+
     # Mean absolute charge map
     wda.visualization.plot_metric_map(
         metrics['mean_abs_q'],
@@ -192,8 +194,9 @@ def main():
         'Mean absolute topological charge per ROI',
         'E[|n−6|]',
         os.path.join(args.output, 'map_mean_abs_charge.png'),
-        page_w=page_w/2,
-        page_h=page_h/6,
+        # slightly larger map area to avoid oversized colorbars and big axis titles
+        page_w=page_w/1.5,
+        page_h=page_h/3,
         dpi=args.dpi
     )
     
@@ -225,4 +228,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

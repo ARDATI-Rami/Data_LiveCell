@@ -279,3 +279,102 @@ def plot_metric_map(
     plt.savefig(output_path, dpi=dpi)
     plt.close(fig)
 
+
+def plot_polygon_metric_map(
+    metric_values: np.ndarray,
+    roi_hulls: dict,
+    title: str,
+    colorbar_label: str,
+    output_path: str,
+    tissue_outline: Optional[np.ndarray] = None,
+    page_w: float = 6.0,
+    page_h: float = 6.0,
+    cmap: str = 'viridis',
+    vmin: Optional[float] = None,
+    vmax: Optional[float] = None,
+    dpi: int = 300
+) -> None:
+    """
+    Plot metric map using polygon patches (for Lagrangian ROIs).
+
+    :param metric_values: 1D array of metric values per ROI.
+    :type metric_values: np.ndarray
+    :param roi_hulls: Dictionary mapping ROI index to hull vertices (N, 2) array.
+    :type roi_hulls: dict
+    :param title: Plot title.
+    :type title: str
+    :param colorbar_label: Colorbar label.
+    :type colorbar_label: str
+    :param output_path: Save path.
+    :type output_path: str
+    :param tissue_outline: Optional tissue boundary vertices (N, 2) array.
+    :type tissue_outline: Optional[np.ndarray]
+    :param page_w: Figure width in inches.
+    :type page_w: float
+    :param page_h: Figure height in inches.
+    :type page_h: float
+    :param cmap: Colormap name.
+    :type cmap: str
+    :param vmin: Min value for colormap (auto if None).
+    :type vmin: Optional[float]
+    :param vmax: Max value for colormap (auto if None).
+    :type vmax: Optional[float]
+    :param dpi: Figure DPI.
+    :type dpi: int
+    """
+    vals = np.asarray(metric_values, dtype=float)
+    finite = vals[np.isfinite(vals)]
+
+    # Auto-determine vmin/vmax if not provided
+    if vmin is None or vmax is None:
+        if finite.size == 0:
+            vmin_, vmax_ = 0.0, 1.0
+        else:
+            vmin_, vmax_ = float(np.min(finite)), float(np.max(finite))
+            if np.isclose(vmin_, vmax_):
+                eps = 1e-6
+                vmin_, vmax_ = vmin_ - eps, vmax_ + eps
+        if vmin is None:
+            vmin = vmin_
+        if vmax is None:
+            vmax = vmax_
+
+    norm = plt.Normalize(vmin=vmin, vmax=vmax)
+
+    fig, ax = plt.subplots(figsize=(page_w, page_h))
+
+    # Plot each ROI polygon
+    for r, hull_xy in roi_hulls.items():
+        val = vals[r] if r < len(vals) else np.nan
+        if np.isfinite(val):
+            color = plt.get_cmap(cmap)(norm(val))
+        else:
+            color = (0.85, 0.85, 0.85, 0.3)  # Light gray for NaN
+
+        patch = plt.Polygon(hull_xy, closed=True, facecolor=color,
+                          edgecolor='k', linewidth=0.6)
+        ax.add_patch(patch)
+
+    # Plot tissue outline if provided
+    if tissue_outline is not None:
+        ax.plot(tissue_outline[:, 0], tissue_outline[:, 1], 'k-', lw=1.2)
+
+    # Add colorbar
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, shrink=0.85)
+    cbar.set_label(colorbar_label, fontsize=8)
+    cbar.ax.tick_params(labelsize=7)
+
+    ax.set_title(title, fontsize=10)
+    ax.set_xlabel('X', fontsize=8)
+    ax.set_ylabel('Y', fontsize=8)
+    ax.set_aspect('equal')
+    ax.tick_params(labelsize=7)
+
+    os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else '.', exist_ok=True)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=dpi)
+    plt.close(fig)
+    print(f"Saved {os.path.basename(output_path)}")
+

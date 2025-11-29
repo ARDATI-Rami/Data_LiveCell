@@ -201,3 +201,4 @@ deprecated
 # Keep Reference Images (Small PNGs for README)
 # ============================================================================
 !images/*.png
+/deprecated/

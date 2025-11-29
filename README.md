@@ -23,8 +23,7 @@ The analysis employs sophisticated statistical methods including:
 - Eulerian (fixed-grid) ROI analysis
 - Lagrangian (cell-tracking) ROI analysis
 
-✅ **Comprehensive Metrics**
-- Jensen-Shannon divergence (information-theoretic)
+✅ **Comprehensive Metrics**n- Jensen-Shannon divergence (information-theoretic)
 - Wasserstein-1 distance (geometric)
 - Topological charge (E[n-6])
 - Bayesian smoothing with Dirichlet prior
@@ -48,6 +47,36 @@ The analysis employs sophisticated statistical methods including:
 - Pinned dependencies (`requirements.txt`, `environment.yml`)
 - Deterministic tests with fixed random seeds
 - Version control ready (`.gitignore` included)
+
+## Images
+
+This repository includes pre-generated visualization images in the `images/` folder. Below are the key visualizations embedded for quick inspection (relative paths are preserved if you want to open the files directly):
+
+### Eulerian ROI (frame 1)
+
+![Eulerian ROI — frame 1](images/Results_R2_euler_roi_frame_1.png)
+
+*Shows the fixed-grid (Eulerian) ROIs overlaid on frame 1 and the cell assignment used for per-ROI topology statistics.*
+
+### Lagrangian ROI (frame 1)
+
+![Lagrangian ROI — frame 1](images/Results_R2_lagrange_roi_frame_1.png)
+
+*Shows the cell-centered (Lagrangian) ROIs that follow groups of cells in frame 1.*
+
+### Average number of cells per Eulerian ROI
+
+![Average cells per Eulerian ROI](images/Results_R2_average_cell_count_map.png)
+
+*Heatmap of the mean cell count observed in each Eulerian ROI across the time series (useful to evaluate sampling uniformity).*
+
+### Average number of cells per Lagrangian ROI
+
+![Average cells per Lagrangian ROI](images/Results_R2_average_cell_count_map_lagrangian.png)
+
+*Analogous heatmap for Lagrangian ROIs (average cells per ROI over trajectories).*
+
+These images are intended for quick visual checks and for inclusion in reports. To regenerate them from scratch, run the Eulerian and Lagrangian visualization scripts in `scripts/` (see the Quick Start examples).
 
 ## Installation
 
@@ -308,14 +337,10 @@ Contributions are welcome! Please:
 
 See `docs/TASK2_TESTING.md` for detailed testing strategy.
 
-## Support
-
-For issues and questions:
-- Open an issue on GitHub
-- Contact: [your-email@example.com]
-
 ## Acknowledgments
 
 - EpiTools team for segmentation software
-- [Add other acknowledgments]
 
+**Data Acknowledgement.** The imaging data used in this project originate from the Drosophila wing disc datasets published by Etournay et al. (2015). We gratefully acknowledge their open data and the work that made this analysis possible; please cite Etournay et al. (2015) when reusing these imaging data in publications.
+
+If you need a BibTeX or full citation for Etournay et al., add the preferred citation in this section or in `docs/`.
